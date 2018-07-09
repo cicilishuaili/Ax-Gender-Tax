@@ -7,7 +7,7 @@ body {
 
 
 div.header {
-    background-color: #706482;
+    background: linear-gradient(135deg, #c94cc9, #2739c4);
     padding: 40px 20px;
 }
 
@@ -64,7 +64,7 @@ div.main-content, div.footer {
 
 div#share {
     color: #FFFFFF;
-    background-color: #706482;
+    background: linear-gradient(135deg, #c94cc9, #4754b7);
     padding: 16px;
     margin: 30px 0px;
 }
@@ -101,16 +101,16 @@ input, #again {
     display: block;
 }
 input:hover, #again.hover {
-    border: 1px solid #5D536D;
+    /*border: 1px solid #5D536D;*/
     background: #635874;
 }
 .button {
-    border: 1px solid #5D536D;
-    background: #706482;
+    /*border: 1px solid #5D536D;*/
+    background: linear-gradient(135deg, #c94cc9, #2739c4);
 }
 .button:hover {
-    border: 1px solid #5D536D;
-    background: #635874;
+    /*border: 1px solid #5D536D;*/
+    background: #ad5bad, #4754b7;
 }
 
 div.footer p {
