@@ -2,11 +2,11 @@
 
     {% block maincontent %}
         <h2>Results</h2>
-        <h4>This advert is <strong>{% if job_ad.coding == "empty" %}neutral{% else %}{{ job_ad.coding }}{%endif%}</strong></h4>
+        <h4>This description is <strong>{% if job_ad.coding == "empty" %}neutral{% else %}{{ job_ad.coding }}{%endif%}</strong></h4>
         <p>{{ explanation }}</p>
-        <p>Of course, there are plenty of other factors that affect the diversity of applicants for this role, and of the people who end up being hired. These include the company's reputation for inclusiveness, its culture, and the behaviour and prejudices (both conscious and unconscious) of the interviewers.</p>
+        <p>Of course, there are plenty of factors that affect how a product is described.</p>
         <div id="masculine">
-            <h3>Masculine-coded words in this ad</h3>
+            <h3>Masculine-coded words in this description</h3>
             {% if masculine_coded_words %}
             <ul>
                 {% for word in masculine_coded_words %}
@@ -33,10 +33,10 @@
         </div>
         <div id="share">
             <h3>Share this result</h3>
-            <p><a href="http://gender-decoder.katmatfield.com/results/{{ job_ad.hash }}">http://gender-decoder.katmatfield.com/results/{{ job_ad.hash }}</a></p>
+            <p><a href="http://fight-the-pink-tax.herokuapp.com/results/{{ job_ad.hash }}">http://fight-the-pink-tax.herokuapp.com/results/{{ job_ad.hash }}</a></p>
         </div>
         <div id="results">
-            <h3>Job advert text</h3>
+            <h3>Product description text</h3>
             <textarea name="texttotest" id="texttotest" cols="90" rows="10">{{ job_ad.ad_text }}</textarea>
         </div>
         {% endblock %}

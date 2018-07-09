@@ -64,7 +64,7 @@ div.main-content, div.footer {
 
 div#share {
     color: #FFFFFF;
-    background: linear-gradient(135deg, #c94cc9, #4754b7);
+    background: linear-gradient(135deg, #ad5bad, #4754b7);
     padding: 16px;
     margin: 30px 0px;
 }
@@ -97,20 +97,20 @@ input, #again {
     font-size: 20px;
     color: white;
     border: 1px solid #5D536D;
-    background: #706482;
+    background: linear-gradient(135deg, #ad5bad, #4754b7);
     display: block;
 }
 input:hover, #again.hover {
     /*border: 1px solid #5D536D;*/
-    background: #635874;
+    background: #5E5E5E;
 }
 .button {
     /*border: 1px solid #5D536D;*/
-    background: linear-gradient(135deg, #c94cc9, #2739c4);
+    background: linear-gradient(135deg, #ad5bad, #4754b7);
 }
 .button:hover {
     /*border: 1px solid #5D536D;*/
-    background: #ad5bad, #4754b7;
+    background: #5E5E5E;
 }
 
 div.footer p {
