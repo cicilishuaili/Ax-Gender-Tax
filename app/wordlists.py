@@ -9,7 +9,7 @@ feminine_coded_words = [
        'conditioners', 'three', 'favorite', 'moisture', 'additional',
        'discomfort', 'days', 'capsules', 'among', 'controls', 'tested',
        'brand', 'organic', 'soothing', 'activity', 'fun', 'botanical',
-       'alcoholuses', 'everyday', 'lady', 'flower'
+       'everyday', 'lady', 'flower'
 ]
 
 masculine_coded_words = [
@@ -19,9 +19,10 @@ masculine_coded_words = [
        'armpit', 'answer', 'wash', 'adventure', 'enduring', 'precision',
        'system', 'bodyspray', 'sport', 'magic', 'places', 'energizing',
        'neck', 'hint', 'anywhere', 'legendary', 'wood', 'transparent',
-       'stronger', 'resistant', 'irresistible', 'fiji', '17', 'game',
-       'cannot', 'got', 'blast', 'high', 'cologne', 'seal', 'chest',
-       'conditioner', 'lime', 'cl', 'fully', 'freshest', 'caught'
+       'stronger', 'resistant', 'irresistible', 'fiji', 'game', 'cannot',
+       'got', 'blast', 'high', 'cologne', 'seal', 'chest', 'conditioner',
+       'lime', 'fully', 'freshest', 'caught', 'transforms', 'effect',
+       'song'
 ]
 
 hyphenated_coded_words = [
