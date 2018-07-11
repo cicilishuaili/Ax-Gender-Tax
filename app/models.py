@@ -142,7 +142,7 @@ class JobAd(db.Model):
             feminine_coded_words = []
         else:
             feminine_coded_words = self.feminine_coded_words.split(",")
-        return masculine_coded_words, feminine_coded_words
+        return set(masculine_coded_words), set(feminine_coded_words)
 
 
 class CodedWordCounter(db.Model):
