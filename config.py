@@ -10,4 +10,4 @@ SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 
-SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+SQLALCHEMY_DATABASE_URI = os.environ['HEROKU_POSTGRESQL_BLACK_URL']
