@@ -7,7 +7,7 @@
 
         <form action="/" method="post" name="jobadform">
             {{ form.hidden_tag() }}
-            <label for="texttotest">Paste the product description here</label>
+            <label for="texttotest">Paste the product description here (default provided)</label>
             {{ form.texttotest(cols="90", rows="20")|safe }}
             <input type="submit" value="Check Description" class="button"/>
         </form>

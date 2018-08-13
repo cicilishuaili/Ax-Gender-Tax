@@ -97,20 +97,20 @@ input, #again {
     font-size: 20px;
     color: white;
     border: 1px solid #5D536D;
-    background: linear-gradient(135deg, #ad5bad, #4754b7);
+    background: #5E5E5E;
     display: block;
 }
 input:hover, #again.hover {
     /*border: 1px solid #5D536D;*/
-    background: #5E5E5E;
+    background: linear-gradient(135deg, #ad5bad, #4754b7);
 }
 .button {
     /*border: 1px solid #5D536D;*/
-    background: linear-gradient(135deg, #ad5bad, #4754b7);
+    background: #5E5E5E;
 }
 .button:hover {
     /*border: 1px solid #5D536D;*/
-    background: #5E5E5E;
+    background: linear-gradient(135deg, #ad5bad, #4754b7);
 }
 
 div.footer p {
