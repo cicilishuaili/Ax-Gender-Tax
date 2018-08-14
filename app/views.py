@@ -21,6 +21,10 @@ def home():
 def aboutme():
     return render_template('aboutme.html')
 
+@app.route('/methods')
+def methods():
+    return render_template('methods.html')
+
 @app.route('/about')
 def about():
     return render_template('about.html',
