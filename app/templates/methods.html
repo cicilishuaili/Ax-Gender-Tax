@@ -2,15 +2,16 @@
 
     {% block maincontent %}
         <h2>Data Source</h2>
-        <p>There is no online market more ubiquitous than Amazon. The product descriptions can be available via their <a href="https://docs.aws.amazon.com/AWSECommerceService/latest/DG/Welcome.html">Amazon Product Advertisement API</a>, requiring an associates account that unfortunately became restricted over the course of the project. Although it is a bit restrictive in the amount of information that is accessible (e.g. they only allow a search to fetch 10 pages of results now instead of the old 100 back in the days), it served as initial exploration that revealed useful insights.</p>
+        <p>There is no online market more ubiquitous than Amazon. The product descriptions can be available via their <a href="https://docs.aws.amazon.com/AWSECommerceService/latest/DG/Welcome.html">Amazon Product Advertisement API</a>, requiring an associates account that unfortunately became restricted over the course of the project. Although it is a bit restrictive in the amount of information that is accessible (e.g. they only allow a search to fetch 10 pages of results), it served as initial exploration that revealed useful insights.</p>
 
         <p>As a result of the restricted access to Amazon's API, the alternative that became the main source of data was the <a href="https://developer.walmartlabs.com/">Walmart Open API.</a> Although it is highly error prone, heterogeneous, and less reliable overall than its Amazon counterpart, it conveniently provide a "gender" category for most of the items and has no restriction on the results returned.</p>
 
         <h2>Analysis</h2>
-        <p>At the heart of this analysis are Naive Bayes and regularized linear regression. This demonstration currently only pertains to deodorants, but these techniques are intended to be generalizable to all product categories.</p>
+        <p>At the heart of this analysis are <a href="/methods#NB">Naive Bayes</a> and <a href="/methods#LM">regularized linear regression</a>. This demonstration currently only pertains to deodorants, but these techniques are intended to be generalizable to all product categories.</p>
 
+        <div id="NB">
         <h3>Naive Bayes</h3>
-          <p>The classifier used for gender is based on the Naive Bayes algorithm. In order to find the probability for a label, this algorithm first uses the Bayes rule to express P(label|features) in terms of P(label) and P(features|label). The algorithm then makes the ‘naive’ assumption that all features are independent, given the label.</p>
+          <p>The classifier used for gender is based on the Naive Bayes algorithm, with features being the bag of words from the descriptions. In order to find the probability for a label, this algorithm first uses the Bayes rule to express P(label|features) in terms of P(label) and P(features|label). The algorithm then makes the ‘naive’ assumption that all features are independent, given the label.</p>
 
             <p>Rather than computing P(features) explicitly, the algorithm just calculates the numerator for each label, and normalizes them so they sum to one.
             For the purpose of this function, the informativeness of a feature is equal to the highest value of P(feature|label), for any label, divided by the lowest value of P(feature|label), for any label.</p>
@@ -34,6 +35,36 @@
         </p>
         <p><img src="/static/documents/razors1.png" width="600" height="600"></p>
         <p><img src="/static/documents/razors2.png" width="600" height="600"></p>
-        <p><img src="/static/documents/razors1.png" width="600" height="600"></p>
-        <p><img src="/static/documents/razors1.png" width="600" height="600"></p>
+
+        <p>Removing the categories of "razors with soap bars" for women and "safety razors" and "straight razors" for men definitely has a noticeable difference. One of the more obvious being the lack of "straight" as an informative word for men. It also removed "moisturizing" for women. Interestingly though, it also removed "Venus", which I can only presume made a lot of those razors with soap bars, such as the "embrace".</p>
+
+<p>Seems that "beard" and "professional" are more associated with safety and straight razors as they were no longer there after the filter.</p>
+
+<p>Some more reflections of practical features are "legs" for women. The name "intuition" as a razor for women stuck, and so has "butter" which implies some moisturizing still.
+
+<p>Qualitatively, "sharp", "edge", "angle", "precision" as informative words for men is not too surprising given the general connotations. As opposed to the "silky" and "curves" that appeared for women before. Who also appear to value "convenience" more over a "superior" experience.</p>
+        <p><img src="/static/documents/perfume1.png" width="600" height="600"></p>
+        <p><img src="/static/documents/perfume2.png" width="600" height="600"></p>
+        <p>Despite filtering out the "essential oils" category for women, "essential" still makes appearance as the most indicative word for women.</p>
+
+<p>"Womenly" scents include aloe, orchid, freesia. "Manly" scents include rosewood, sage, tobacco, cardamom. Unsurprisingly, it is "flowery" vs. "spices" (and other so-called rugged things like ashes and timber).</p>
+
+<p>The main points that catch my attention are the adjectives "delicate" and "pure" for women, compared with "manly", "masculine", "man", and even "homme" for men. It seems important to emphasize the masculinity of the product for men. Although given the lack of the word feminine for women, it doesn't appear that it is something perfumes for women want to highlight either. Nonetheless, the liberal application of such seemingly subjective adjectives is fascinating.</p>
+        <p><img src="/static/documents/pants.png" width="600" height="600"></p>
+        <p><img src="/static/documents/jeans.png" width="600" height="600"></p>
+        <p><img src="/static/documents/shirts.png" width="600" height="600"></p>
+        <p><img src="/static/documents/socks.png" width="600" height="600"></p>
+        <p><img src="/static/documents/wallets.png" width="600" height="600"></p>
+
+        <p>Things like shoes and watches seem to do less well. Their accuracies on the test cases falls below 70s, although it is debatable if humans could do much better. And for glasses, it seems to be so bad as to draw with random assignment at 50% accuracy.</p>
+
+<p>It could have more to do with the quality of descriptions for these descriptions. They may contain a large amount of "nondescript" desriptions that tend to be brief and generic, or messy and filled with technical measurements, copy and pasted over and over. The subcategories may also differ too much to create a coherent theme, as it may be the case for glasses, which included cases and chains.</p>
+
+</div>
+
+<div id="LM">
+
+
+
+</div>
     {% endblock %}
