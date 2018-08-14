@@ -1,7 +1,19 @@
 {% extends "basic-layout.html" %}
 
     {% block maincontent %}
+        <h2>Data Source</h2>
+        <p>There is no online market more ubiquitous than Amazon. The product descriptions can be available via their <a href="https://docs.aws.amazon.com/AWSECommerceService/latest/DG/Welcome.html">Amazon Product Advertisement API</a>, requiring an associates account that unfortunately became restricted over the course of the project. Although it is a bit restrictive in the amount of information that is accessible (e.g. they only allow a search to fetch 10 pages of results now instead of the old 100 back in the days), it served as initial exploration that revealed useful insights.</p>
+
+        <p>As a result of the restricted access to Amazon's API, the alternative that became the main source of data was the <a href="https://developer.walmartlabs.com/">Walmart Open API.</a> Although it is highly error prone, heterogeneous, and less reliable overall than its Amazon counterpart, it conveniently provide a "gender" category for most of the items and has no restriction on the results returned.</p>
+
         <h2>Analysis</h2>
+        <p>At the heart of this analysis are Naive Bayes and regularized linear regression. This demonstration currently only pertains to deodorants, but these techniques are intended to be generalizable to all product categories.</p>
+
+        <h3>Naive Bayes</h3>
+          <p>The classifier used for gender is based on the Naive Bayes algorithm. In order to find the probability for a label, this algorithm first uses the Bayes rule to express P(label|features) in terms of P(label) and P(features|label). The algorithm then makes the ‘naive’ assumption that all features are independent, given the label.</p>
+
+            <p>Rather than computing P(features) explicitly, the algorithm just calculates the numerator for each label, and normalizes them so they sum to one.
+            For the purpose of this function, the informativeness of a feature is equal to the highest value of P(feature|label), for any label, divided by the lowest value of P(feature|label), for any label.</p>
         <!--<div id="masculine">
             <h3>Masculine-skewed words</h3>
             <ul>
@@ -18,5 +30,10 @@
                 {% endfor %}
             </ul>
         </div>-->
+        <p>The Naive Bayes algorithm used is very simple and interpretable, so the products with gender that can be somewhat accurately predicted by this method have distinguishing words that appear mostly in one category. The set up is also very straightforward, with a 80/20 split for training/testing data sets. In the future there might be added complexity, but for now will do. With that said, the test accuracy is surprisingly high, in the high 70s to mid 80s for things like razors, perfume, shirt, pants, and wallets. Keep in mind that a human may not be able to predict whether a product description is one for women's or men's product with 100% accuracy.
+        </p>
+        <p><img src="/static/documents/razors1.png" width="600" height="600"></p>
+        <p><img src="/static/documents/razors2.png" width="600" height="600"></p>
+        <p><img src="/static/documents/razors1.png" width="600" height="600"></p>
         <p><img src="/static/documents/razors1.png" width="600" height="600"></p>
     {% endblock %}
