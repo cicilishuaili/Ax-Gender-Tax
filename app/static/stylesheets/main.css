@@ -106,7 +106,7 @@ input:hover, #again.hover {
 }
 .button {
     /*border: 1px solid #5D536D;*/
-    background: #5E5E5E;
+    background: linear-gradient(135deg, #c94cc9, #2739c4);
 }
 .button:hover {
     /*border: 1px solid #5D536D;*/
