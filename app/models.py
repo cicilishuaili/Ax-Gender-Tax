@@ -11,9 +11,12 @@ from binascii import hexlify
 
 from app import app, db
 from wordlists import *
+import dill as pickle
+
 
 
 class JobAd(db.Model):
+
     hash = db.Column(db.String(), primary_key=True)
     date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     ad_text = db.Column(db.Text)
@@ -71,6 +74,8 @@ class JobAd(db.Model):
         app.logger.info(datetime.datetime.now())
         app.logger.info("---")
         self.extract_coded_words(word_list)
+        bow = self.bag_filter_lower(word_list)
+        self.classify(bow)
         app.logger.info("Assess coding started")
         app.logger.info(datetime.datetime.now())
         app.logger.info("---")
@@ -93,7 +98,7 @@ class JobAd(db.Model):
             if word.find("-"):
                 is_coded_word = False
                 for coded_word in hyphenated_coded_words:
-                    if word.startswith(coded_word):
+                    if word == coded_word:
                         is_coded_word = True
                 if not is_coded_word:
                     word_index = word_list.index(word)
@@ -102,6 +107,20 @@ class JobAd(db.Model):
                     word_list = (word_list[:word_index] + split_words +
                         word_list[word_index:])
         return word_list
+
+
+
+    def bag_filter_lower(self, words):
+        return {word.lower():1 for word in words}
+
+    def classify(self, features):
+        cd = os.getcwd()
+        with open(cd+"/app/NBmodel.pkl", 'rb') as f:
+            NBmodel = pickle.load(f)
+        dist = NBmodel.prob_classify(features)
+        self.score = dist.prob('f')
+
+
 
     def extract_coded_words(self, advert_word_list):
         words, count = self.find_and_count_coded_words(advert_word_list,
@@ -117,17 +136,18 @@ class JobAd(db.Model):
         return (",").join(gender_coded_words), len(gender_coded_words)
 
     def assess_coding(self):
-        coding_score = self.feminine_word_count - self.masculine_word_count
-        if coding_score == 0:
-            if self.feminine_word_count:
+        #coding_score = self.feminine_word_count - self.masculine_word_count
+        g_score = self.score
+        if g_score >= 0.4 and g_score <= 0.6:
+            if self.feminine_word_count or self.masculine_coded_words:
                 self.coding = "neutral"
             else:
                 self.coding = "empty"
-        elif coding_score > 3:
+        elif g_score >= 0.8:
             self.coding = "strongly feminine-coded"
-        elif coding_score > 0:
+        elif g_score >= 0.6 and g_score <=0.8:
             self.coding = "feminine-coded"
-        elif coding_score < -3:
+        elif g_score <= 0.2:
             self.coding = "strongly masculine-coded"
         else:
             self.coding = "masculine-coded"
