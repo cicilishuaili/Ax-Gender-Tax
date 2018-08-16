@@ -90,9 +90,10 @@ class JobAd(db.Model):
         cleaner_text = re.sub("[\\s]", " ", cleaner_text, 0, 0)
         cleaned_word_list = re.sub(u"[\.\t\,“”‘’<>\*\?\!\"\[\]\@\':;\(\)\./&]",
             " ", cleaner_text, 0, 0).split(" ")
-        word_list = [word.lower() for word in cleaned_word_list if word != ""]
+        word_list = [word.lower() for word in cleaned_word_list if word]
         return self.de_hyphen_non_coded_words(word_list)
 
+# if there are hyphenated words, which there currently is not.
     def de_hyphen_non_coded_words(self, word_list):
         for word in word_list:
             if word.find("-"):

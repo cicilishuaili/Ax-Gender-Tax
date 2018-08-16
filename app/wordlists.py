@@ -1,6 +1,3 @@
-# These words should be written as the stem to make it easier to match all variants.
-# In other words, the suffix should be intentionally left out.
-
 feminine_coded_words = [
     'feminine', 'beauty', 'floral', 'moisturizers', 'beautiful',
        'trust', 'different', 'match', 'soybean', 'summer', 'incredible',
@@ -96,11 +93,11 @@ explanations = {
     "strongly feminine-coded": ("This description uses more words that "
                         "are skewed feminine than words that are "
                         "skewed as masculine."),
-    "strongly masculine-coded": ("This job ad uses more words that "
-                        "are skewed masculine than words that"
+    "strongly masculine-coded": ("This description uses more words that "
+                        "are skewed masculine than words that "
                         "skew feminine."),
     "empty": ("This description doesn't use any words "
-              "that are skewed masculine or feminine."),
-    "neutral": ("This description uses an equal number "
+              "that are skewed very masculine or feminine."),
+    "neutral": ("This description uses approximately equal number "
               "of words that are skewed masculine and feminine.")
 }

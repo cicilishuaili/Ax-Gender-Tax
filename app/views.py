@@ -36,8 +36,6 @@ def about():
 
 @app.route('/results/<ad_hash>')
 def results(ad_hash):
-    #with open("NBmodel.pkl", 'rb') as f:
-    #    NBmodel = pickle.load(f)
     job_ad = JobAd.query.get_or_404(ad_hash)
     masculine_coded_words, feminine_coded_words = job_ad.list_words()
     return render_template('results.html', job_ad=job_ad,

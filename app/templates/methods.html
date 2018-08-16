@@ -7,7 +7,7 @@
           <p>As a result of the restricted access to Amazon's API, the alternative that became the main source of data was the <a href="https://developer.walmartlabs.com/">Walmart Open API.</a> Although it is highly error prone, heterogeneous, and less reliable overall than its Amazon counterpart, it conveniently provide a "gender" category for most of the items and has no restriction on the results returned.</p>
 
         <h2>Analysis</h2>
-          <p>At the heart of this analysis are <a href="/methods#NB">Naive Bayes</a> and <a href="/methods#LM">regression</a>. This demonstration currently only pertains to deodorants, but these techniques are intended to be generalizable to all product categories.</p>
+          <p>At the heart of this analysis are <a href="/methods#NB">Naive Bayes</a> and <a href="/methods#Regression">regression</a>. This demonstration currently only pertains to deodorants, but these techniques are intended to be generalizable to all product categories.</p>
 
         <h3>Pre-processing</h3>
           <p>Text had to be processed using standard NLP techniques from Python's Natural Language Toolkit (nltk). After going through a standard tokenizer, punctuations and stopwords were filtered out explicitly along with the words 'men'/'man' and 'women'/'woman'. A decision was made against lemmatization and stemming because of the existence of subtle and interesting nuisances, e.g. in deodorants, 'moisturizer' singular for men vs. 'moisturizers' plural for women and 'lady' for women, 'ladies' for men. Only unigrams were considered for simplicity. This resulted in a simple bag of words model for the Naive Bayes classifier.</p>
@@ -36,10 +36,12 @@
                 {% endfor %}
             </ul>
         </div>-->
-        <p>The Naive Bayes algorithm used is very simple and interpretable, so the products with gender that can be somewhat accurately predicted by this method have distinguishing words that appear mostly in one category. The set up is also very straightforward, with a 80/20 split for training/testing data sets. In the future there might be added complexity, but for now will do. With that said, the test accuracy is surprisingly high, in the high 70s to mid 80s for things like razors, perfume, shirt, pants, and wallets. Keep in mind that a human may not be able to predict whether a product description is one for women's or men's product with 100% accuracy.
+        <p>The Naive Bayes algorithm used is very simple and interpretable, so the products with gender that can be somewhat accurately predicted by this method have distinguishing words that appear mostly in one category. The set up is also very straightforward, with a 80/20 split for training/testing data sets. In the future there might be added complexity, but for now will do. With that said, the test accuracy is surprisingly high, in the high 70s to mid 80s for things like razors, perfume, shirt, pants, and wallets. Keep in mind that a human may not be able to predict whether a product description is one for women's or men's product with 100% accuracy, especially with indicating words removed.
         </p>
-        <p><img src="/static/documents/razors1.png" width="600" height="600"></p>
-        <p><img src="/static/documents/razors2.png" width="600" height="600"></p>
+        <p><img src="/static/documents/razors1.png" width="600" height="600"> Training accuracy: 93.8811188811
+ Test accuracy: 84.6153846154</p>
+        <p><img src="/static/documents/razors2.png" width="600" height="600"> Training accuracy: 93.5897435897
+ Test accuracy: 87.7551020408</p>
 
         <p>Removing the categories of "razors with soap bars" for women and "safety razors" and "straight razors" for men definitely has a noticeable difference. One of the more obvious being the lack of "straight" as an informative word for men. It also removed "moisturizing" for women. Interestingly though, it also removed "Venus", which I can only presume made a lot of those razors with soap bars, such as the "embrace".</p>
 
@@ -48,26 +50,33 @@
         <p>Some more reflections of practical features are "legs" for women. The name "intuition" as a razor for women stuck, and so has "butter" which implies some moisturizing still.
 
         <p>Qualitatively, "sharp", "edge", "angle", "precision" as informative words for men is not too surprising given the general connotations. As opposed to the "silky" and "curves" that appeared for women before. Who also appear to value "convenience" more over a "superior" experience.</p>
-        <p><img src="/static/documents/perfume1.png" width="600" height="600"></p>
-        <p><img src="/static/documents/perfume2.png" width="600" height="600"></p>
+        <p><img src="/static/documents/perfume1.png" width="600" height="600"> Training accuracy: 88.5245901639
+ Test accuracy: 77.3076923077</p>
+        <p><img src="/static/documents/perfume2.png" width="600" height="600"> Training accuracy: 88.7605042017
+ Test accuracy: 78.9915966387</p>
         <p>Despite filtering out the "essential oils" category for women, "essential" still makes appearance as the most indicative word for women.</p>
 
         <p>"Womenly" scents include aloe, orchid, freesia. "Manly" scents include rosewood, sage, tobacco, cardamom. Unsurprisingly, it is "flowery" vs. "spices" (and other so-called rugged things like ashes and timber).</p>
 
         <p>The main points that catch attention are the adjectives "delicate" and "pure" for women, compared with "manly", "masculine", "man", and "homme" for men. It seems important to emphasize the masculinity of the product for men. Although given the lack of the word feminine for women, it doesn't appear that it is something perfumes for women want to highlight either. Nonetheless, the liberal application of such seemingly subjective adjectives is fascinating.</p>
-        <p><img src="/static/documents/pants.png" width="600" height="600"></p>
-        <p><img src="/static/documents/jeans.png" width="600" height="600"></p>
-        <p><img src="/static/documents/shirts.png" width="600" height="600"></p>
-        <p><img src="/static/documents/socks.png" width="600" height="600"></p>
-        <p><img src="/static/documents/wallets.png" width="600" height="600"></p>
+        <p><img src="/static/documents/pants.png" width="600" height="600"> Training accuracy: 90.652173913
+ Test accuracy: 88.2608695652</p>
+        <p><img src="/static/documents/jeans.png" width="600" height="600"> Training accuracy: 92.2330097087
+ Test accuracy: 81.8181818182</p>
+        <p><img src="/static/documents/shirts.png" width="600" height="600"> Training accuracy: 92.9505813953
+ Test accuracy: 85.1744186047</p>
+        <p><img src="/static/documents/socks.png" width="600" height="600"> Training accuracy: 91.0792951542
+ Test accuracy: 78.3185840708</p>
+        <p><img src="/static/documents/wallets.png" width="600" height="600"> Training accuracy: 98.064516129
+ Test accuracy: 78.9473684211</p>
 
-        <p>Things like shoes and watches seem to do less well. Their accuracies on the test cases falls below 70s, although it is debatable if humans could do much better. And for glasses, it seems to be so bad as to draw with random assignment at 50% accuracy.</p>
+        <p>Things like shoes and watches, on the hand seem to do less well. Their accuracies on the test cases falls below 70s, although it is debatable if humans could do much better. And for glasses, it seems to be so bad as to draw with random assignment at 50% accuracy.</p>
 
         <p>It could have more to do with the quality of descriptions for these descriptions. They may contain a large amount of "nondescript" desriptions that tend to be brief and generic, or messy and filled with technical measurements, copy and pasted over and over. The subcategories may also differ too much to create a coherent theme, as it may be the case for glasses, which included cases and chains.</p>
 
 </div>
 
-<div id="LM">
+<div id="Regression">
   <h3>Regression</h3>
 
   <p>The prices were not easily characterized. Walmart often has absurd prices for items that were currently not in stock or substantially inflated to reflect availability. Also, there were no good way to normalize the price by amount, as quantity information is extremely non-standard and messy. Looking at the broad distribution and making the assumption that we can make comparisons given all others are held equal, we can see a long tail at the higher price end due to the "bulk" packaging items<p/>
