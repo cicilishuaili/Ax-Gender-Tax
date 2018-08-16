@@ -29,9 +29,7 @@ def methods():
 
 @app.route('/about')
 def about():
-    return render_template('about.html',
-        masculine_coded_words=masculine_coded_words,
-        feminine_coded_words=feminine_coded_words)
+    return render_template('about.html')
 
 
 @app.route('/results/<ad_hash>')

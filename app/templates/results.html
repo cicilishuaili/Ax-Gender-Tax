@@ -4,7 +4,11 @@
         <h2>Results</h2>
         <h4>This description is <strong>{% if job_ad.coding == "empty" %}neutral{% else %}{{ job_ad.coding }}{%endif%}</strong></h4>
         <p>{{ explanation }}</p>
-        <p>Of course, there are many factors that affect how a product is described. From design features to targeted advertising.</p>
+
+        <h4>This description <strong>{% if job_ad.gender == "purple" or job_ad.coding =="empty" %}does not imply a particular gender tax{% else %} appears to incur a {{ job_ad.gender }} tax of about ${{ job_ad.tax}}{%endif%}</strong></h4>
+        <p>{{ explanation }}</p>
+
+        <p>Of course, there are many factors that affect how a product is described and priced. Even if there may not be any of the top salient words present, a description can still be very likely for one gender.</p>
         <div id="masculine">
             <h3>Masculine-coded words in this description</h3>
             {% if masculine_coded_words %}

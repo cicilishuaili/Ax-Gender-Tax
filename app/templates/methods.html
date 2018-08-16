@@ -19,8 +19,8 @@
         <h4>Naive Bayes</h4>
           <p>The classifier used for gender is based on the Naive Bayes algorithm, with features being the bag of words from the descriptions. In order to find the probability for a label, this algorithm first uses the Bayes rule to express P(label|features) in terms of P(label) and P(features|label). The algorithm then makes the ‘naive’ assumption that all features are independent, given the label.</p>
 
-            <p>Rather than computing P(features) explicitly, the algorithm just calculates the numerator for each label, and normalizes them so they sum to one.
-            For the purpose of this function, the informativeness of a feature is equal to the highest value of P(feature|label), for any label, divided by the lowest value of P(feature|label), for any label.</p>
+            <p>Rather than computing P(features) explicitly, the algorithm just calculates the numerator for each label, and normalizes them so they sum to one. For this tool, if the probability
+            </p>
         <!--<div id="masculine">
             <h3>Masculine-skewed words</h3>
             <ul>
@@ -37,8 +37,10 @@
                 {% endfor %}
             </ul>
         </div>-->
-        <p>The Naive Bayes algorithm used is very simple and interpretable, so the products with gender that can be somewhat accurately predicted by this method have distinguishing words that appear mostly in one category. The set up is also very straightforward, with a 80/20 split for training/testing data sets. In the future there might be added complexity, but for now will do. With that said, the test accuracy is surprisingly high, in the high 70s to mid 80s for things like razors, perfume, shirt, pants, and wallets. Keep in mind that a human may not be able to predict whether a product description is one for women's or men's product with 100% accuracy, especially with indicating words removed.
+        <p>The Naive Bayes algorithm used is very simple and interpretable, so the products with gender that can be somewhat accurately predicted by this method have distinguishing words that appear mostly in one category. The set up is also very straightforward, with a 80/20 split for training/testing data sets. With that said, the test accuracy is surprisingly high, in the high 70s to mid 80s for things like razors, perfume, shirt, pants, and wallets. Keep in mind that a human may not be able to predict whether a product description is one for women's or men's product with 100% accuracy, especially with indicating words removed.
         </p>
+
+        <p>For the purpose of this function, the informativeness of a word(feature) is equal to the highest value of P(feature|label), for any label, divided by the lowest value of P(feature|label), for any label.</p>
         <p><img src="/static/documents/razors1.png" width="600" height="600"> Training accuracy: 93.8811188811
  Test accuracy: 84.6153846154</p>
         <p><img src="/static/documents/razors2.png" width="600" height="600"> Training accuracy: 93.5897435897
@@ -93,22 +95,22 @@
 
     <p>R^2 (coefficient of determination) regression score was used as the metric of determining performance. </p>
 
-    <p>Count vectorizer with Ridge Regression. Grid search with 5-fold SV optimized parameters: alpha=125. Training score: 0.6070830419658093, Test Score: 0.25881681222617275</p>
+    <p>Count vectorizer with Ridge Regression. Grid search with 5-fold CV optimized parameters: alpha=125. Training score: 0.6070830419658093, Test Score: 0.25881681222617275</p>
 
-    <p>Count vectorizer with Multi-Layer Perceptron Regressor. Grid search with 5-fold SV optimized parameters: hidden_layer_sizes=(64, 64, 64), activation=’relu’, solver=’adam’, alpha=0.0001, batch_size=’auto’. Training Score: 0.8473957070129323, Test Score: 0.12217477801362671</p>
+    <p>Count vectorizer with Multi-Layer Perceptron Regressor. Grid search with 5-fold CV optimized parameters: hidden_layer_sizes=(64, 64, 64), activation=’relu’, solver=’adam’, alpha=0.0001, batch_size=’auto’. Training Score: 0.8473957070129323, Test Score: 0.12217477801362671</p>
 
 
-    <p>TF-IDF vectorizer with Multi-Layer Perceptron Regressor. Grid search with 5-fold SV optimized parameters: hidden_layer_sizes=(64, 64), activation=’relu’, solver=’adam’, alpha=0.0001, batch_size=’auto’. Training score: 0.8269466830518402,
+    <p>TF-IDF vectorizer with Multi-Layer Perceptron Regressor. Grid search with 5-fold CV optimized parameters: hidden_layer_sizes=(64, 64), activation=’relu’, solver=’adam’, alpha=0.0001, batch_size=’auto’. Training score: 0.8269466830518402,
 Test score: 0.008186246482212578</p>
 
 
-    <p>TF-IDF vectorizer with Random Forest Regressor. Grid search with 5-fold SV optimized parameters: n_estimators=30, min_samples_split=7. Training score: 0.7755749737071362, Test score: 0.2869409630171266</p>
+    <p>TF-IDF vectorizer with Random Forest Regressor. Grid search with 5-fold CV optimized parameters: n_estimators=30, min_samples_split=7. Training score: 0.7755749737071362, Test score: 0.2869409630171266</p>
 
     <p>TF-IDF vectorizer with Lasso Regression did not converge as it required alpha parameter to be small for decent regression score.</p>
 
-    <p>TF-IDF vectorizer with Ridge Regression. Grid search with 5-fold SV optimized parameters: alpha=1. Training score: 0.6260793349420096, Test score: 0.26070968786733084.</p>
+    <p>TF-IDF vectorizer with Ridge Regression. Grid search with 5-fold CV optimized parameters: alpha=1. Training score: 0.6260793349420096, Test score: 0.26070968786733084.</p>
 
-    <p>Bag of words vectorized model with Ridge regression. Grid search with 5-fold SV optimized parameters: alpha = 41. Train score: 0.6916899250520833 Test score: .25961868867438115
+    <p>Bag of words vectorized model with Ridge regression. Grid search with 5-fold CV optimized parameters: alpha = 41. Train score: 0.6916899250520833 Test score: .25961868867438115
 
 
 

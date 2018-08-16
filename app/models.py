@@ -139,6 +139,12 @@ class JobAd(db.Model):
     def assess_coding(self):
         #coding_score = self.feminine_word_count - self.masculine_word_count
         g_score = self.score
+        if g_score>=0.6:
+            self.gender = "pink"
+        elif g_score<=0.4:
+            self.gender = "blue"
+        else:
+            self.gender = "purple"
         if g_score >= 0.4 and g_score <= 0.6:
             if self.feminine_word_count or self.masculine_coded_words:
                 self.coding = "neutral"
