@@ -5,10 +5,11 @@
         <h4>This description is <strong>{% if job_ad.coding == "empty" %}neutral{% else %}{{ job_ad.coding }}{%endif%}</strong></h4>
         <p>{{ explanation }}</p>
 
-        <h4>This description <strong>{% if gender == "purple" %}does not imply a particular gender tax{% else %}appears to incur a {{ gender }} tax of about ${{ job_ad.masculine_word_count, job_ad.feminine_word_count }}{%endif%}</strong></h4>
+        <h4>This description <strong>{% if gender == "purple" %} does not imply a particular gender tax{% else %}{% if job_ad.feminine_word_count == 0 and job_ad.masculine_word_count == 0 %} does not appear to imply a {{ gender }} tax {% else %} can imply a {{ gender }} tax of about ${% if gender == "blue" %}{{ job_ad.masculine_word_count }}{%endif%}{% if gender =="pink" %}{{ job_ad.feminine_word_count }}{%endif%}{%endif%}{%endif%}</strong></h4>
 
-        <p>Of course, there are many factors that affect how a product is described and priced. Even if there may not be any of the top salient words present, a description can still be very likely for one gender.</p>
+        <p>Of course, there are many factors that affect how a product is described and priced. Even if there may not be any of the most salient words present, a description can still be very gender-coded and come with an associated gender tax.</p>d
         <div id="masculine">
+          {% if gender == "blue" or gender == "purple" %}
             <h3>Masculine-coded words in this description</h3>
             {% if masculine_coded_words %}
             <ul>
@@ -19,9 +20,11 @@
             {% else %}
             <p>No masculine-coded words were found.</p>
             {% endif %}
+            {% endif %}
             <!-- <p><a class="reference" href="/about#masculine">See the full list of masculine-coded words</a></p> -->
         </div>
         <div id="feminine">
+          {% if gender == "pink" or gender == "purple" %}
             <h3>Feminine-coded words in this description</h3>
             {% if feminine_coded_words %}
             <ul>
@@ -31,6 +34,7 @@
             </ul>
             {% else %}
             <p>No feminine-coded words were found.</p>
+            {% endif %}
             {% endif %}
             <!-- <p><a class="reference" href="/about#feminine">See the full list of feminine-coded words</a></p> -->
         </div>

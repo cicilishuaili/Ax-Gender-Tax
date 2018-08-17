@@ -39,7 +39,6 @@ def about():
 def results(ad_hash):
     job_ad = JobAd.query.get_or_404(ad_hash)
     masculine_coded_words, feminine_coded_words = job_ad.list_words()
-    #tax = str(round(job_ad.get_tax(),2))
     return render_template('results.html', job_ad=job_ad,
         masculine_coded_words=masculine_coded_words,
         feminine_coded_words=feminine_coded_words,

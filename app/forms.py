@@ -4,4 +4,4 @@ from wtforms import TextAreaField, validators
 
 class JobAdForm(FlaskForm):
     texttotest = TextAreaField(u'', [validators.Length(min=1)],
-    default="""Dry Idea Unscented Roll On Deodorant uses an excellent formula to keep your skin protected throughout the day. It's hypoallergenic and comes with vitamin E to revitalize your skin. This 3.25 fl oz Dry Idea roll on product is soft and easy to apply. Dry Idea Anti-Perspirant Deodorant Roll-On Unscented 3.25 Oz: Hypoallergenic Unscented deodorant gives you pulse activated wetness protection. Up to 72 hour odor protection. Simple to apply Made with vitamin E for your skin""")
+    default="""Clinical Strength Invisible Solid is our best protection that goes on dry. It absorbs odor while releasing a scent to keep you smelling clean and feeling dry. Did you know that heat, activity, and stress can all cause you to sweat and that stress sweat smells the WORST? That's because stress sweat comes from a different gland, causing more bacteria and more odor. Clinical Strength Invisible Solid—incredible protection, no matter what the day may bring."""

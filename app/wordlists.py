@@ -1,4 +1,4 @@
-feminine_coded_words = [
+f1_words = [
     'feminine', 'beauty', 'floral', 'moisturizers', 'beautiful',
        'trust', 'different', 'match', 'soybean', 'summer', 'incredible',
        'delicate', 'rose', 'soft', 'powder', 'jasmine', 'shaving',
@@ -130,7 +130,7 @@ f2_words = [u'feminine', u'beauty', u'powder', u'beautiful', u'delicate',
        u'jumpstart', u'person', u'read', u'essences', u'chinensis',
        u'coriander', u'lather', u'standards', u'cans']
 
-masculine_coded_words = [
+m1_words = [
     'spice', 'old', 'guard', 'masculine', 'defense', 'endurance',
        'phoenix', 'axe', 'energized', 'machine', 'climb', 'moisturizer',
        'zone', 'tough', 'put', 'rush', 'freedom', 'apollo', 'sports',
@@ -256,9 +256,12 @@ m2_words = [u'old', u'spice', u'guard', u'axe', u'defense', u'energized',
        u'protected', u'label', u'sweat', u'easy', u'way', u'shippingpack',
        u'motionsense', u'stink', u'aerosol', u'aqua', u'shirts',
        u'package', u'captures', u'lasts', u'body', u'disteardimonium',
-       u'near', u'best', u'secret', u'water',
+       u'near', u'best', u'water',
        u'life', u'dressed', u'smelling', u'lasting', u'fighting', u'care',
        u'amount', u'lemon']
+
+feminine_coded_words = f1_words + f2_words
+masculine_coded_words = m1_words + m2_words
 
 hyphenated_coded_words = [
 ]

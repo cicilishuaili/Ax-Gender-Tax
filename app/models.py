@@ -132,19 +132,19 @@ class JobAd(db.Model):
         cd = os.getcwd()
         with open(cd+"/app/REGmodel.pkl", 'rb') as f:
             REGmodel = pickle.load(f)
-        price_full = REGmodel.predict(words)
-        if self.score>=50:
+        price_full = float(REGmodel.predict(words))
+        if self.score >= 0.5:
             modwords = {k:v for k,v in words.items() if k not in self.feminine_coded_words}
         else:
             modwords = {k:v for k,v in words.items() if k not in self.masculine_coded_words}
-        price_stripped = REGmodel.predict(modwords)
+        price_stripped = float(REGmodel.predict(modwords))
         tax = price_full - price_stripped
         self.price_full = price_full
         self.price_stripped = price_stripped
         self.tax = tax
-        if self.score>=50 and tax>0:
+        if self.score >= 0.5 and tax > 0:
             self.feminine_word_count = tax
-        if self.score<50 and tax>0:
+        if self.score < 0.5 and tax > 0:
             self.masculine_word_count = tax
 
     def assess_gender(self):
