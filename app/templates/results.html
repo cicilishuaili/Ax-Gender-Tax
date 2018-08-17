@@ -7,7 +7,7 @@
 
         <h4>This description <strong>{% if gender == "purple" %} does not imply a particular gender tax{% else %}{% if job_ad.feminine_word_count == 0 and job_ad.masculine_word_count == 0 %} does not appear to imply a {{ gender }} tax {% else %} can imply a {{ gender }} tax of about ${% if gender == "blue" %}{{ job_ad.masculine_word_count }}{%endif%}{% if gender =="pink" %}{{ job_ad.feminine_word_count }}{%endif%}{%endif%}{%endif%}</strong></h4>
 
-        <p>Of course, there are many factors that affect how a product is described and priced. Even if there may not be any of the most salient words present, a description can still be very gender-coded and come with an associated gender tax.</p>d
+        <p>Of course, there are many factors that affect how a product is described and priced. Even if there may not be any of the most salient words present, a description can still be very gender-coded and come with an associated gender tax.</p>
         <div id="masculine">
           {% if gender == "blue" or gender == "purple" %}
             <h3>Masculine-coded words in this description</h3>
