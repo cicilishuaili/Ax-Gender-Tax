@@ -8,6 +8,9 @@ from models import JobAd, CodedWordCounter
 from wordlists import *
 import dill as pickle
 from nltk.classify import NaiveBayesClassifier
+from sklearn.feature_extraction import DictVectorizer
+from sklearn.linear_model import Ridge
+from sklearn.pipeline import Pipeline
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -36,10 +39,11 @@ def about():
 def results(ad_hash):
     job_ad = JobAd.query.get_or_404(ad_hash)
     masculine_coded_words, feminine_coded_words = job_ad.list_words()
+    #tax = str(round(job_ad.get_tax(),2))
     return render_template('results.html', job_ad=job_ad,
         masculine_coded_words=masculine_coded_words,
         feminine_coded_words=feminine_coded_words,
-        explanation=explanations[job_ad.coding])
+        explanation=explanations[job_ad.coding], gender=genders[job_ad.coding])
 
 
 @app.errorhandler(404)

@@ -289,3 +289,12 @@ explanations = {
     "neutral": ("This description uses approximately equal number "
               "of words that are skewed masculine and feminine.")
 }
+
+genders = {
+    "feminine-coded": "pink",
+    "masculine-coded": "blue",
+    "strongly feminine-coded": "pink",
+    "strongly masculine-coded": "blue",
+    "empty": "purple",
+    "neutral": "purple"
+}

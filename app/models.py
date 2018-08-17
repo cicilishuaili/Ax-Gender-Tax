@@ -12,16 +12,18 @@ from binascii import hexlify
 from app import app, db
 from wordlists import *
 import dill as pickle
-
-
+from nltk.classify import NaiveBayesClassifier
+from sklearn.feature_extraction import DictVectorizer
+from sklearn.linear_model import Ridge
+from sklearn.pipeline import Pipeline
 
 class JobAd(db.Model):
 
     hash = db.Column(db.String(), primary_key=True)
     date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     ad_text = db.Column(db.Text)
-    masculine_word_count = db.Column(db.Integer, default=0)
-    feminine_word_count = db.Column(db.Integer, default=0)
+    masculine_word_count = db.Column(db.Float, default=0)
+    feminine_word_count = db.Column(db.Float, default=0)
     masculine_coded_words = db.Column(db.Text)
     feminine_coded_words = db.Column(db.Text)
     coding = db.Column(db.String())
@@ -76,10 +78,15 @@ class JobAd(db.Model):
         self.extract_coded_words(word_list)
         bow = self.bag_filter_lower(word_list)
         self.classify(bow)
+        self.get_tax(bow)
+        app.logger.info(self.tax)
+        app.logger.info(self.price_full)
+        app.logger.info(self.price_stripped)
         app.logger.info("Assess coding started")
         app.logger.info(datetime.datetime.now())
         app.logger.info("---")
         self.assess_coding()
+        self.assess_gender()
         app.logger.info("Analysis finished")
         app.logger.info(datetime.datetime.now())
         app.logger.info("---")
@@ -121,15 +128,42 @@ class JobAd(db.Model):
         dist = NBmodel.prob_classify(features)
         self.score = dist.prob('f')
 
+    def get_tax(self, words):
+        cd = os.getcwd()
+        with open(cd+"/app/REGmodel.pkl", 'rb') as f:
+            REGmodel = pickle.load(f)
+        price_full = REGmodel.predict(words)
+        if self.score>=50:
+            modwords = {k:v for k,v in words.items() if k not in self.feminine_coded_words}
+        else:
+            modwords = {k:v for k,v in words.items() if k not in self.masculine_coded_words}
+        price_stripped = REGmodel.predict(modwords)
+        tax = price_full - price_stripped
+        self.price_full = price_full
+        self.price_stripped = price_stripped
+        self.tax = tax
+        if self.score>=50 and tax>0:
+            self.feminine_word_count = tax
+        if self.score<50 and tax>0:
+            self.masculine_word_count = tax
+
+    def assess_gender(self):
+        g_score = self.score
+        if g_score>=0.6:
+            self.gender = "pink"
+        elif g_score<=0.4:
+            self.gender = "blue"
+        else:
+            self.gender = "purple"
 
 
     def extract_coded_words(self, advert_word_list):
-        words, count = self.find_and_count_coded_words(advert_word_list,
+        words, _ = self.find_and_count_coded_words(advert_word_list,
             masculine_coded_words)
-        self.masculine_coded_words, self.masculine_word_count = words, count
-        words, count = self.find_and_count_coded_words(advert_word_list,
+        self.masculine_coded_words = words
+        words, _ = self.find_and_count_coded_words(advert_word_list,
             feminine_coded_words)
-        self.feminine_coded_words, self.feminine_word_count = words, count
+        self.feminine_coded_words = words
 
     def find_and_count_coded_words(self, advert_word_list, gendered_word_list):
         gender_coded_words = [word for word in advert_word_list
@@ -139,14 +173,8 @@ class JobAd(db.Model):
     def assess_coding(self):
         #coding_score = self.feminine_word_count - self.masculine_word_count
         g_score = self.score
-        if g_score>=0.6:
-            self.gender = "pink"
-        elif g_score<=0.4:
-            self.gender = "blue"
-        else:
-            self.gender = "purple"
         if g_score >= 0.4 and g_score <= 0.6:
-            if self.feminine_word_count or self.masculine_coded_words:
+            if self.feminine_coded_words or self.masculine_coded_words:
                 self.coding = "neutral"
             else:
                 self.coding = "empty"
@@ -160,11 +188,11 @@ class JobAd(db.Model):
             self.coding = "masculine-coded"
 
     def list_words(self):
-        if self.masculine_coded_words == "":
+        if not self.masculine_coded_words:
             masculine_coded_words = []
         else:
             masculine_coded_words = self.masculine_coded_words.split(",")
-        if self.feminine_coded_words == "":
+        if not self.feminine_coded_words:
             feminine_coded_words = []
         else:
             feminine_coded_words = self.feminine_coded_words.split(",")

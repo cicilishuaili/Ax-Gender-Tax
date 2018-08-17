@@ -6,3 +6,6 @@ jinja2
 pip
 simplejson
 nltk
+scipy
+numpy
+scikit-learn
