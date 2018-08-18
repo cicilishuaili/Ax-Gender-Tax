@@ -22,8 +22,11 @@ class JobAd(db.Model):
     hash = db.Column(db.String(), primary_key=True)
     date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     ad_text = db.Column(db.Text)
-    masculine_word_count = db.Column(db.Float, default=0.0)
-    feminine_word_count = db.Column(db.Float, default=0.0)
+    #masculine_word_count = db.Column(db.Float, default=0.0)
+    #feminine_word_count = db.Column(db.Float, default=0.0)
+    blue_tax = db.Column(db.Float, default=0.0)
+    pink_tax = db.Column(db.Float, default=0.0)
+    gender = db.Column(db.Text)
     masculine_coded_words = db.Column(db.Text)
     feminine_coded_words = db.Column(db.Text)
     coding = db.Column(db.String())
@@ -79,6 +82,7 @@ class JobAd(db.Model):
         bow = self.bag_filter_lower(word_list)
         self.classify(bow)
         self.get_tax(bow)
+        self.assess_gender()
         app.logger.info(self.tax)
         app.logger.info(self.price_full)
         app.logger.info(self.price_stripped)
@@ -143,15 +147,14 @@ class JobAd(db.Model):
         self.price_stripped = price_stripped
         self.tax = tax
         if self.score >= 0.5 and tax > 0:
-            self.feminine_word_count = tax
+            self.pink_tax = round(tax,2)
         if self.score < 0.5 and tax > 0:
-            self.masculine_word_count = tax
+            self.blue_tax = round(tax,2)
 
     def assess_gender(self):
-        g_score = self.score
-        if g_score>=0.6:
+        if self.score >= 0.6:
             self.gender = "pink"
-        elif g_score<=0.4:
+        elif self.score <= 0.4:
             self.gender = "blue"
         else:
             self.gender = "purple"
@@ -178,11 +181,11 @@ class JobAd(db.Model):
                 self.coding = "neutral"
             else:
                 self.coding = "empty"
-        elif g_score >= 0.8:
+        elif g_score >= 0.9:
             self.coding = "strongly feminine-coded"
         elif g_score >= 0.6 and g_score <=0.8:
             self.coding = "feminine-coded"
-        elif g_score <= 0.2:
+        elif g_score <= 0.1:
             self.coding = "strongly masculine-coded"
         else:
             self.coding = "masculine-coded"

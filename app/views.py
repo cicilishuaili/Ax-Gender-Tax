@@ -42,7 +42,7 @@ def results(ad_hash):
     return render_template('results.html', job_ad=job_ad,
         masculine_coded_words=masculine_coded_words,
         feminine_coded_words=feminine_coded_words,
-        explanation=explanations[job_ad.coding], gender=genders[job_ad.coding])
+        explanation=explanations[job_ad.coding], gender=job_ad.gender)
 
 
 @app.errorhandler(404)

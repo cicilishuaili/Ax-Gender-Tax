@@ -276,21 +276,21 @@ possible_codings = (
 
 explanations = {
     "feminine-coded": ("This description uses more words that "
-                        "are skewed feminine than words that are "
-                        "skewed masculine."),
+                        "are skewed female than words that are "
+                        "skewed male."),
     "masculine-coded": ("This description uses more words that "
-                        "skew masculine than words that are "
-                        "skew feminine."),
+                        "skew male than words that are "
+                        "skew female."),
     "strongly feminine-coded": ("This description uses more words that "
-                        "are skewed feminine than words that are "
-                        "skewed as masculine."),
+                        "are skewed female than words that are "
+                        "skewed as male."),
     "strongly masculine-coded": ("This description uses more words that "
-                        "are skewed masculine than words that "
-                        "skew feminine."),
+                        "are skewed male than words that "
+                        "skew female."),
     "empty": ("This description doesn't use any words "
-              "that are skewed very masculine or feminine."),
+              "that are skewed very male or female."),
     "neutral": ("This description uses approximately equal number "
-              "of words that are skewed masculine and feminine.")
+              "of words that are skewed male and female.")
 }
 
 genders = {
