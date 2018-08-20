@@ -1,6 +1,14 @@
 {% extends "basic-layout.html" %}
 
     {% block maincontent %}
+    <link href="https://cdn.pydata.org/bokeh/release/bokeh-0.12.4.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.4.min.css"
+        rel="stylesheet" type="text/css">
+    <link
+        href="https://cdn.pydata.org/bokeh/release/bokeh-tables-0.12.4.min.css"
+        rel="stylesheet" type="text/css">
+
         <h2>Results</h2>
         <h4>This description is <strong>{% if job_ad.coding == "empty" %}neutral{% else %}{{ job_ad.coding }}{%endif%}</strong></h4>
         <h4>{% if gender == "purple" %} It thus <strong>does not imply a particular gender tax</strong>{% else %}{% if job_ad.tax_exist == False %} It however, <strong>does not appear to imply a {{ gender }} tax</strong>{% else %} It can imply a <strong>{{ gender }} tax of ~${{ job_ad.tax }}</strong>{%endif%}{%endif%}</h4>
@@ -8,6 +16,13 @@
         <p>{{ explanation }}
         {% if job_ad.tax_exist == "False" %}Based on the description, it is not likely costing you more more for them{% else %}Based on the description, it is likely you are paying more for them{%endif%}.</p>
         <p>Of course, there are many factors that affect how a product is described and priced. Is it up to you to decide if these are product attributes you are willing to pay the gender tax for.</p>
+
+        <div>
+        {{ resources|indent(4)|safe }}
+        {{ plot_script|indent(4)|safe }}
+        {{ plot_div|indent(4)|safe }}
+        </div>
+
         <div id="masculine">
           {% if gender == "blue" or gender == "purple" %}
             <h3>Masculine-coded words in this description</h3>
@@ -46,4 +61,8 @@
             <h3>Product description text</h3>
             <textarea name="texttotest" id="texttotest" cols="90" rows="10">{{ job_ad.ad_text }}</textarea>
         </div>
+
+        <script src="https://cdn.pydata.org/bokeh/release/bokeh-0.12.4.min.js"></script>
+        <script src="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.4.min.js"></script>
+        <script src="https://cdn.pydata.org/bokeh/release/bokeh-tables-0.12.4.min.js"></script>
         {% endblock %}
