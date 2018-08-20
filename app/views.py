@@ -98,7 +98,7 @@ def results(ad_hash):
         labels_m = LabelSet(x='ratio', y='coef', text='word', level='glyph',
         x_offset = 2, text_font_size="10pt",
         source=ColumnDataSource(label_words_df[label_words_df.gender=='m']))
-        p.add_layout(labels_f)
+        p.add_layout(labels_m)
 
     p.yaxis.axis_line_color = None
     p.xaxis.axis_line_color = None
