@@ -13,7 +13,7 @@ from sklearn.linear_model import Ridge
 from sklearn.pipeline import Pipeline
 from bokeh.embed import components
 from bokeh.resources import INLINE
-#from bokeh.util.string import encode_utf8
+from bokeh.util.string import encode_utf8
 import pandas as pd
 import os
 from bokeh.models import HoverTool
@@ -152,12 +152,13 @@ def results(ad_hash):
 
     resources = INLINE.render()
 
-    return render_template('results.html', job_ad=job_ad,
+    html = render_template('results.html', job_ad=job_ad,
         masculine_coded_words=masculine_coded_words,
         feminine_coded_words=feminine_coded_words,
         explanation=explanations[job_ad.coding],
         gender=job_ad.gender,
         plot_script=script, plot_div=div, resources=resources)
+    return encode_utf8(html)
 
 
 @app.errorhandler(404)
