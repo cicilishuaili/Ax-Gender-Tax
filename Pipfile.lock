@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f474d682a4446670c8ab35909a354c06c02544e7dfa623507df4bfeb5de37fb7"
+            "sha256": "8e1cac791f85824e6b200070f1745c6bcc7bb7a45f966ba50e3e35f018bbcbd5"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -25,11 +25,10 @@
         },
         "bokeh": {
             "hashes": [
-                "sha256:182879a7a41bfe0db5b9a5afbf0a16512056f9ba7a06fa1d5ef1dcc08a926597",
-                "sha256:e138941b62f59bc48bc5b8d249e90c03fed31c1d5abe47ab2ce9e4c83202f73c"
+                "sha256:4fa2360f4492785d47c898be72374f0123bf8e8a939824ed1d1610f1ce30b2a0"
             ],
             "index": "pypi",
-            "version": "==0.12.3"
+            "version": "==0.12.4"
         },
         "certifi": {
             "hashes": [
