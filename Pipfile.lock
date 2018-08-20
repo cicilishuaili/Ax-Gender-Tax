@@ -28,7 +28,7 @@
                 "sha256:4fa2360f4492785d47c898be72374f0123bf8e8a939824ed1d1610f1ce30b2a0"
             ],
             "index": "pypi",
-            "version": "==0.12.4"
+            "version": "==0.12.6"
         },
         "certifi": {
             "hashes": [
