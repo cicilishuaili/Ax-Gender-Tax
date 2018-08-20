@@ -288,7 +288,8 @@ explanations = {
                         "are skewed male than words that "
                         "skew female."),
     "empty": ("This description doesn't use any words "
-              "that are skewed very male or female."),
+              "that are skewed very male or female. "
+              " Although even if there may not be salient words present, a description can still be gender-coded and come with a possible associated gender tax."),
     "neutral": ("This description uses approximately equal number "
               "of words that are skewed male and female.")
 }
