@@ -22,11 +22,9 @@ class JobAd(db.Model):
     hash = db.Column(db.String(), primary_key=True)
     date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     ad_text = db.Column(db.Text)
-    #masculine_word_count = db.Column(db.Float, default=0.0)
-    #feminine_word_count = db.Column(db.Float, default=0.0)
-    blue_tax = db.Column(db.Float, default=0.0)
-    pink_tax = db.Column(db.Float, default=0.0)
+    tax = db.Column(db.Float, default=0.0)
     gender = db.Column(db.Text)
+    tax_exist = db.Column(db.Boolean, default=False)
     masculine_coded_words = db.Column(db.Text)
     feminine_coded_words = db.Column(db.Text)
     coding = db.Column(db.String())
@@ -145,11 +143,9 @@ class JobAd(db.Model):
         tax = price_full - price_stripped
         self.price_full = price_full
         self.price_stripped = price_stripped
-        self.tax = tax
-        if self.score >= 0.5 and tax > 0:
-            self.pink_tax = round(tax,2)
-        if self.score < 0.5 and tax > 0:
-            self.blue_tax = round(tax,2)
+        if tax > 0:
+            self.tax_exist = True
+            self.tax = round(tax,2)
 
     def assess_gender(self):
         if self.score >= 0.6:
