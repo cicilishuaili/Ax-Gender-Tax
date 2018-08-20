@@ -93,7 +93,15 @@
 
   <p>Several models were tested for regression on the price, which turns out to be non-trivial due again to the fact that prices often depend heavily on quantity information which may or may not be apparent in the description. These ranged from linear models to multi-layer perceptrons, none of which performed too well on out-of-sample metrics. Powerful techniques tended to overfit easily despite cross validation. Nonetheless, the main objective is to provide a potential price differential due to presence of potentially gendered words, so overall accuracy was traded off for ease of interpretability and generalizable association.<p/>
 
-    <p>R^2 (coefficient of determination) regression score was used as the metric of determining performance. </p>
+    <p>The crux of this analysis remains the fact only care about those words that are both gendered (see definition of high impact in previous section), and has an impact on price. This is key because some of the gendered words may imply a certain design feature that the user desires and is willing to pay a higher price for, despite it being associated or marketed for a particular gender. The effect of words on price is ultimately approximated through a regularized linear regression on price. There is some convergence amongst the different vectorizors used, ranging from counts, TF-IDF, and one-hot-encoding. Both TF-IDF and one-hot produces a more visible seperation of word importance. Ultimately, on-hot encoding produces the most uniform and easily interpretable features in terms of whether the word is there or not and how its presence can directly increment the price.</p>
+
+    <p>Word count vectorizer: difficult to compare impact one on one as is confounded by occurence. <img src="/static/documents/countvect.png" width="600" height="600"></p>
+
+    <p>TF-IDF vectorizer: <img src="/static/documents/tf-idf.png" width="600" height="600"></p>
+
+    <p>One-hot-encoding: easy to pick out and compare words on a present/not basis<img src="/static/documents/bog.png" width="600" height="600"></p>
+
+    <p>Below are some of the model metrics. R^2 (coefficient of determination) regression score was used as the metric of determining performance. </p>
 
     <p>Count vectorizer with Ridge Regression. Grid search with 5-fold CV optimized parameters: alpha=125. Training score: 0.6070830419658093, Test Score: 0.25881681222617275</p>
 
@@ -112,7 +120,7 @@
 
     <p>TF-IDF vectorizer with Ridge Regression. Grid search with 5-fold CV optimized parameters: alpha=1. Training score: 0.6260793349420096, Test score: 0.26070968786733084.</p>
 
-    <p>Bag of words vectorized model with Ridge regression. Grid search with 5-fold CV optimized parameters: alpha = 41. Train score: 0.5916899250520833 Test score: .25961868867438115
+    <p>Bag of words vectorized model with Ridge regression. Grid search with 5-fold CV optimized parameters: alpha = 41. Train score: 0.6916899250520833 Test score: .25961868867438115. This was ultimately the model chosen as it is most straightforward in interpretation and achieves relative high performance.
 
 
 
