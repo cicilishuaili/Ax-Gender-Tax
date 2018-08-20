@@ -57,13 +57,22 @@ def results(ad_hash):
 
     HI_words_df = words_df[(abs(words_df.ratio.values)>10) | (abs(words_df.coef.values)>2)| ((words_df.coef.values)>2)]
 
+    if job_ad.gender == "pink":
+        coded_words = feminine_coded_words
+    elif job_ad.gender == "blue":
+        coded_words = masculine_coded_words
+    else:
+        coded_words = masculine_coded_words + feminine_coded_words
+
+    label_words_df = words_df[(words_df.word.isin(coded_words)) & (words_df.coef.values>0)]
+
     min_x = HI_words_df.ratio.values.min()
     min_y = HI_words_df.coef.values.min()
     max_x = HI_words_df.ratio.values.max()
     #max_y = HI_words_df.coef.values.max()
     max_y = 6
 
-    p = figure(x_range=(min_x-40, max_x+10), y_range=(min_y-1, max_y+1), title="High Impact Words in Descriptions for Deodorants",
+    p = figure(x_range=(min_x-40, max_x+10), y_range=(min_y-1, max_y+1), title="High Impact Words in Deodorant Descriptions",
               plot_width=600, plot_height=600, background_fill_color='#F0F0F0',border_fill_color='#F0F0F0')
 
     p.ray(x=[0], y=[0], length=0, angle=0, line_width=1, line_color='black')
@@ -71,16 +80,26 @@ def results(ad_hash):
     p.ray(x=[0], y=[0], length=0, angle=np.pi*3/2, line_width=1, line_color='black')
     p.ray(x=[0], y=[0], length=0, angle=np.pi*1/2, line_width=1, line_color='black')
 
-
-    p.scatter(x='ratio',y='coef', legend = "Female",alpha = 0.7, size = 8,
+    p.scatter(x='ratio',y='coef',alpha = 1, size = 8,
+           color = 'deeppink', source=ColumnDataSource(label_words_df[label_words_df.gender=='f']))
+    p.scatter(x='ratio',y='coef',alpha = 1, size = 8,
+           color = 'deepskyblue', source=ColumnDataSource(label_words_df[label_words_df.gender=='m']))
+    p.scatter(x='ratio',y='coef', legend = "Female",alpha = 0.7, size = 4,
            color = 'deeppink', source=ColumnDataSource(HI_words_df[HI_words_df.gender=='f']))
-    p.scatter(x='ratio',y='coef', legend = "Male", alpha = 0.7, size = 8,
+    p.scatter(x='ratio',y='coef', legend = "Male", alpha = 0.7, size = 4,
            color = 'deepskyblue', source=ColumnDataSource(HI_words_df[HI_words_df.gender=='m']))
-    #labels_m = LabelSet(x='ratio', y='coef', text='word', level='glyph', x_offset = 2,#y_offset= random.choice([0,-18]),
-    #          source=ColumnDataSource(label_words_df[label_words_df.gender=='m']))
-    #labels_f = LabelSet(x='ratio', y='coef', text='word', level='glyph',x_offset = -2,
-    #                    text_align = 'right',
-    #          source=ColumnDataSource(label_words_df[label_words_df.gender=='f']))
+
+    if job_ad.gender == "pink" or job_ad.gender == "purple":
+        labels_f = LabelSet(x='ratio', y='coef', text='word', level='glyph',
+        x_offset = -2, text_align = 'right',text_font_size="10pt",
+        source=ColumnDataSource(label_words_df[label_words_df.gender=='f']))
+        p.add_layout(labels_f)
+    elif job_ad.gender == "blue" or job_ad.gender == "purple":
+        labels_m = LabelSet(x='ratio', y='coef', text='word', level='glyph',
+        x_offset = 2, text_font_size="10pt",
+        source=ColumnDataSource(label_words_df[label_words_df.gender=='m']))
+        p.add_layout(labels_f)
+
     p.yaxis.axis_line_color = None
     p.xaxis.axis_line_color = None
     p.yaxis.major_tick_line_color = None
@@ -89,8 +108,6 @@ def results(ad_hash):
     p.xaxis.minor_tick_line_color = None
     p.outline_line_color = None
 
-    #p.add_layout(labels_m)
-    #p.add_layout(labels_f)
     p.xaxis.axis_label = "Gender Likelihood Ratio"
     p.yaxis.axis_label = "Relative Impact on Price"
     p.yaxis.axis_label_text_font_style = 'bold'
