@@ -2,4 +2,4 @@ dill
 flask
 jinja2
 pip
-bokeh=12.6
+bokeh=0.12.6
