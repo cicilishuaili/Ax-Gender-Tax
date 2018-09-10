@@ -17,13 +17,12 @@
         {% if job_ad.tax_exist == False %}Based on the description, it is not likely costing you more more for them{% else %}Based on the description, it is likely you are paying more for them{% endif %}.</p>
         <p>Of course, there are many factors that affect how a product is described and priced. {% if job_ad.tax_exist == True %}Labeled below in the graph are the words in the description that are potentially contributing to the tax. Is it up to you to decide if these are product attributes you are willing to pay the gender tax for.</p>
 
-        <div>
         {{ resources|safe }}
         {{ plot_script|safe }}
         {{ plot_div|safe }}
-        </div>
-        {% else %}{% endif %}
         
+        {% else %}</p>{% endif %}
+
         {% if gender == "blue" or gender == "purple" %}
         <div id="masculine">
             <h3>Masculine-coded words in this description</h3>
