@@ -23,9 +23,9 @@
         {{ plot_div|safe }}
         </div>
         {% else %}{% endif %}
-
+        
+        {% if gender == "blue" or gender == "purple" %}
         <div id="masculine">
-          {% if gender == "blue" or gender == "purple" %}
             <h3>Masculine-coded words in this description</h3>
             {% if masculine_coded_words %}
             <ul>
@@ -36,11 +36,12 @@
             {% else %}
             <p>No masculine-coded words were found.</p>
             {% endif %}
-            {% endif %}
-            <!-- <p><a class="reference" href="/about#masculine">See the full list of masculine-coded words</a></p> -->
         </div>
+        {% endif %}
+            <!-- <p><a class="reference" href="/about#masculine">See the full list of masculine-coded words</a></p> -->
+
+        {% if gender == "pink" or gender == "purple" %}
         <div id="feminine">
-          {% if gender == "pink" or gender == "purple" %}
             <h3>Feminine-coded words in this description</h3>
             {% if feminine_coded_words %}
             <ul>
@@ -51,9 +52,10 @@
             {% else %}
             <p>No feminine-coded words were found.</p>
             {% endif %}
+            </div>
             {% endif %}
             <!-- <p><a class="reference" href="/about#feminine">See the full list of feminine-coded words</a></p> -->
-        </div>
+
         <div id="share">
             <h3>Share this result</h3>
             <p><a href="http://ax-gender-tax.herokuapp.com/results/{{ job_ad.hash }}">http://ax-gender-tax.herokuapp.com/results/{{ job_ad.hash }}</a></p>
