@@ -139,10 +139,10 @@ def results(ad_hash):
                        x_start=max_x, y_start=max_y, x_end=max_x+2, y_end=max_y))
     p.add_layout(Arrow(end=NormalHead(size=10,fill_color='#A9A9A9',line_color='#A9A9A9'),
                        x_start=min_x-22, y_start=min_y-0.2, x_end=min_x-22, y_end=min_y-0.3))
-    notes_f = Label(x=min_x-16, y=max_y-0.15,text='More Likely Female',text_color='#A9A9A9')
-    notes_x = Label(x=min_x-20, y=max_y-0.35,text='Higher Cost',text_align='right',angle=np.pi/2,text_color='#A9A9A9')
+    notes_f = Label(x=min_x-16, y=max_y-0.16,text='More Likely Female',text_color='#A9A9A9')
+    notes_x = Label(x=min_x-20, y=max_y-0.38,text='Higher Cost',text_align='right',angle=np.pi/2,text_color='#A9A9A9')
     notes_y = Label(x=min_x-19.5, y=min_y,text='Lower Cost',angle=np.pi/2,text_color='#A9A9A9')
-    notes_m = Label(x=max_x-2, y=max_y-0.15,text='More Likely Male',text_align='right',text_color='#A9A9A9')
+    notes_m = Label(x=max_x-2, y=max_y-0.16,text='More Likely Male',text_align='right',text_color='#A9A9A9')
     p.add_layout(notes_x)
     p.add_layout(notes_f)
     p.add_layout(notes_y)
