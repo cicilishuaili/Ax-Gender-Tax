@@ -20,9 +20,8 @@
         {{ resources|safe }}
         {{ plot_script|safe }}
         {{ plot_div|safe }}
-        
-        {% else %}</p>{% endif %}
 
+        {% else %}</p>{% endif %}
         {% if gender == "blue" or gender == "purple" %}
         <div id="masculine">
             <h3>Masculine-coded words in this description</h3>
@@ -38,7 +37,6 @@
         </div>
         {% endif %}
             <!-- <p><a class="reference" href="/about#masculine">See the full list of masculine-coded words</a></p> -->
-
         {% if gender == "pink" or gender == "purple" %}
         <div id="feminine">
             <h3>Feminine-coded words in this description</h3>
